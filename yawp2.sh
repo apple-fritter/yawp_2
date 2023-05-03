@@ -27,6 +27,29 @@ sudo mount --bind /dev/pts "$chrootDir/dev/pts"
 sudo mount --bind /proc "$chrootDir/proc"
 sudo mount --bind /sys "$chrootDir/sys"
 
+#!/bin/bash
+
+# Set the custom label
+custom_label="Custom $(date +%Y.%m.%d)"
+
+# Path to the diskdefines file inside the ISO
+diskdefines_file="isolinux/diskdefines"
+
+# Mount the ISO to a temporary directory
+mount_dir=$(mktemp -d)
+sudo mount -o loop "$input_iso" "$mount_dir"
+
+# Path to the diskdefines file within the mounted ISO
+diskdefines_path="$mount_dir/$diskdefines_file"
+
+# Remove the DISKLABEL, LABEL, and CDLABEL lines
+sudo sed -i '/^#define \(DISKLABEL\|LABEL\|CDLABEL\)/d' "$diskdefines_path"
+
+# Add the custom label at the end of the file
+echo "#define DISKLABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+echo "#define LABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+echo "#define CDLABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+
 # Chroot into the environment and execute commands
 sudo chroot "$chrootDir" /bin/bash -c "
   # The update_installed_packages.sh script
