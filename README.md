@@ -3,6 +3,11 @@
 
 This script allows you to update an Debian ISO file, install the latest available kernel, set it as the default boot kernel in the resulting ISO, and remove older kernel packages and related module files, while requiring little-to-no human interaction.
 
+## Differences
+In contrast to the original yawp, yawp2 is no longer also wrapper to the update cleaning routine scripts, but rather includes them in one unified script, which may be more accessible to the end user for customization purposes.
+
+In addition to the above, there is now a specific routine to handle kernel updates to the ISO.
+
 ## Functionality
 - Updates the system and upgrades all packages in the chroot environment.
 - Checks for newer kernel versions and installs the latest available kernel if not already installed.
