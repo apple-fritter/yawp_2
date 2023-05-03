@@ -8,14 +8,47 @@ In contrast to the original yawp, yawp2 is no longer also wrapper to the update 
 
 In addition to the above, there exists now a specific routine to handle kernel updates to the ISO.
 
-## Functionality
-- Extract the ISO to a temporary chroot directory.
-- Update the system, install the latest kernel, set it as the default, and remove older kernels and related files in the chroot environment.
-- Set the newly installed kernel as the default boot kernel in the resulting ISO.
-- Updates the 'diskdefines' file
-- Repack the updated chroot directory into a new ISO file.
-- Clean up temporary directories and files.
-- After the script finishes, you will find the updated ISO file in the specified output path.
+## Logical flow
+```
+Start
+├─┬ Input ISO
+│ └── Output ISO
+├─┬ Create Temporary Directories
+│ ├─┬ Mount ISO
+│ │ ├── Extract ISO
+│ │ └── Inject Scripts
+│ └─┬ Add Network Connectivity to Chroot
+│   ├── Mount /dev, /dev/pts, /proc, /sys
+│   └── Chroot Environment
+│     ├── Update System
+│     ├── Install Latest Kernel
+│     ├── Set Default Kernel
+│     └── Cleanup
+│       ├── Clean Home Directory
+│       ├── Remove Unused Schema Files
+│       ├── Compile Remaining Schema Files
+│       ├── Clean Bash History
+│       ├── Clean Backup Files
+│       ├── Clean Temporary Files
+│       ├── Clean Java Cache
+│       ├── Clean SQLite3 History
+│       ├── Clean System Cache
+│       ├── Clean Rotated Logs
+│       ├── Clean Trash
+│       ├── Clean Thumbnail Cache
+│       └── Clean X11 Debug Logs
+├── Exit Chroot Environment
+├── Unmount Bind Mounts
+├─┬ Set Custom Label
+│ ├─┬ Mount ISO
+│ │ └── Modify Diskdefines File
+│ └── Unmount ISO
+├─┬ Repack ISO
+│ ├─┬ Create New SquashFS
+│ │ └── Cleanup Chroot
+│ └── Create New ISO
+└── Cleanup Temporary Directories
+```
 
 ## Usage
 
