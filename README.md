@@ -8,8 +8,35 @@ In contrast to the original yawp, yawp2 is no longer also wrapper to the update 
 
 In addition to the above, there exists now a specific routine to handle kernel updates to the ISO.
 
-## Modifying the `diskdefines` file
-The script now automates the process of modifying the diskdefines file inside an ISO image
+## Modifying the diskdefines file
+The script now automates the process of modifying the `diskdefines` file inside an ISO image.
+
+The diskdefines file is a text file used in Ubuntu and some other Linux distributions to provide metadata about an ISO image. It is typically found in the root directory of the ISO file and is named "diskdefines".
+
+The diskdefines file contains information such as the name and version of the distribution, release date, and other details. It is used by the installer to display this information during the installation process.
+
+Here's an example of the contents of a diskdefines file:
+
+```
+#define DISKNAME  Ubuntu 20.04 LTS
+#define TYPE  binary
+#define TYPEbinary  1
+#define ARCH  amd64
+#define ARCHamd64  1
+#define DISKNUM  1
+#define TOTALNUM  0
+#define DISKSIZE  4.7GB
+#define LABEL  Ubuntu 20.04 LTS amd64
+#define CDLABEL  Ubuntu 20.04 LTS
+#define MENU  /isolinux/splash.txt
+#define AUTOMENU  /casper/automenu.txt
+#define HELP  /casper/help.txt
+#define NOHELP  /casper/nohelp.txt
+#define INDEX  /casper/index.txt
+#define KERNEL  /casper/vmlinuz
+#define APPEND  file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd quiet splash ---
+#define TEXTHELP  /casper/text.cfg
+```
 
 ### Here's a breakdown of its functionality:
 - The script prompts the user to enter the path to the ISO file that needs to be modified and stores it in the input_iso variable.
