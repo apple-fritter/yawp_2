@@ -49,6 +49,7 @@ Start
 │ └── Create New ISO
 └── Cleanup Temporary Directories
 ```
+This representation provides a clear overview of the script flow. It starts with input and output handling, followed by creating temporary directories. Then, it mounts the ISO and extracts it. It sets a custom label by modifying the diskdefines file. Next, it adds network connectivity and enters the chroot environment. Inside the chroot, it updates the system, installs the latest kernel, sets the default kernel, and performs various cleanup operations. After exiting the chroot environment, it unmounts the bind mounts. It proceeds to repack the ISO by creating a new squashFS and generating a new ISO. Finally, it cleans up the temporary directories.
 
 ## Usage
 
