@@ -1,5 +1,5 @@
 # yawp ][
-[yawp](https://github.com/apple-fritter/yawp/blob/main/yawp.sh), the predecessor had a good reception following it's first commits. I wanted to leave it be, and update some of my strategies employed by such a script, and write something new. I also wanted to write something far less involved, than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI.
+[yawp](https://github.com/apple-fritter/yawp), the predecessor had a good reception following it's first commits. I wanted to leave it be, and update some of my strategies employed by such a script, and write something new. I also wanted to write something far less involved, than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI.
 
 This script allows you to update an Debian ISO file, install the latest available kernel, set it as the default boot kernel in the resulting ISO, and remove older kernel packages and related module files, while requiring little-to-no human interaction.
 
