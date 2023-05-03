@@ -8,6 +8,18 @@ In contrast to the original yawp, yawp2 is no longer also wrapper to the update 
 
 In addition to the above, there exists now a specific routine to handle kernel updates to the ISO.
 
+## Modifying the `diskdefines` file
+The script now automates the process of modifying the diskdefines file inside an ISO image
+
+### Here's a breakdown of its functionality:
+- The script prompts the user to enter the path to the ISO file that needs to be modified and stores it in the input_iso variable.
+- It sets a custom label by appending the current date (in the format YYYY.MM.DD) to the string "Custom".
+- The script creates a temporary directory (mount_dir) using mktemp -d.
+- It mounts the ISO file specified by input_iso to the temporary directory using the sudo mount command.
+- The diskdefines_path variable is set to the path of the diskdefines file within the mounted ISO.
+- Using sudo sed -i, the script removes the lines starting with #define DISKLABEL, #define LABEL, and #define CDLABEL from the diskdefines file.
+- The custom label lines are appended at the end of the diskdefines file using sudo tee -a.
+
 ## Functionality
 - Updates the system and upgrades all packages in the chroot environment.
 - Checks for newer kernel versions and installs the latest available kernel if not already installed.
