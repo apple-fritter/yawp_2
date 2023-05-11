@@ -30,6 +30,14 @@ sudo mount --bind /dev/pts "$chrootDir/dev/pts"
 sudo mount --bind /proc "$chrootDir/proc"
 sudo mount --bind /sys "$chrootDir/sys"
 
+# Remove the DISKLABEL, LABEL, and CDLABEL lines
+sudo sed -i '/^#define \(DISKLABEL\|LABEL\|CDLABEL\)/d' "$diskdefines_path"
+
+# Add the custom label at the end of the file
+echo "#define DISKLABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+echo "#define LABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+echo "#define CDLABEL  $custom_label" | sudo tee -a "$diskdefines_path" > /dev/null
+
 # Chroot into the environment and execute commands
 sudo chroot "$chrootDir" /bin/bash -c "
   # Update installed packages
