@@ -12,6 +12,9 @@ if [ -z "$output_iso" ]; then
   output_iso="${input_iso%.*}_updated_$(date +%y%m%d).iso"
 fi
 
+# Set the custom label
+custom_label="Custom $(date +%Y.%m.%d)"
+
 # Create temporary directories for mount and chroot
 mkdir -p isomount "$chrootDir"
 
