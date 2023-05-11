@@ -1,59 +1,67 @@
 # yawp ][
-[yawp](https://github.com/apple-fritter/yawp), the predecessor, had a good reception following its first commits. I wanted to leave it be, and update some of my strategies employed by such a script, and write something new. I also wanted to write something far less involved, than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI.
+This script automates the process of updating and repackaging an ISO file using chroot.
 
-This script allows you to update an Debian ISO file, install the latest available kernel, set it as the default boot kernel in the resulting ISO, and remove older kernel packages and related module files, while requiring little-to-no human interaction.
+[yawp](https://github.com/apple-fritter/yawp), the predecessor, had a good reception following its first commits. I wanted to leave it be, and update some of my strategies employed by such a script and write something new. I also wanted to write something far less involved than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI. Please also consider checking out my related project, [iSOnject](https://github.com/apple-fritter/iSOnject).
 
-#### Additional implementation:
-Please also consider checking out my other project, [iSOnject](https://github.com/apple-fritter/iSOnject).
+## Functionality"
+yawp ][ performs the following tasks:
+- Mounts the input ISO file
+- Extracts the ISO contents to a chroot directory
+- Updates installed packages and installs the latest available kernel
+- Sets the newly installed kernel as the default boot kernel
+- Updates the diskdefines file with the accurate disk size
+- Updates the diskdefines file with a custom label
+- Repacks the updated chroot directory into a new ISO file
+- Cleans up temporary directories
 
 ## Differences
 In contrast to the original yawp, yawp2 is no longer also wrapper to the update and cleaning routine scripts, but rather includes them in one unified script, which may be more accessible to the end user for customization purposes.
 
-In addition to the above, there exists now a specific routine to handle kernel updates to the ISO.
+In addition to the above, there exists now a specific routine to handle kernel updates to the ISO, and modifies the diskdefines to accurately reflect the size of the new ISO's filesystem.
 
-## Logical flow
+## Flowchart
+This representation provides a clear overview of the script flow.
 ```
-Start
-├─┬ Input ISO
-│ └── Output ISO
-├─┬ Create Temporary Directories
-│ ├─┬ Mount ISO
-│ │ ├── Extract ISO
-│ │ └── Inject Scripts
-│ └─┬ Add Network Connectivity to Chroot
-│   ├── Mount /dev, /dev/pts, /proc, /sys
-│   └── Chroot Environment
-│     ├── Update System
-│     ├── Install Latest Kernel
-│     ├── Set Default Kernel
-│     └── Cleanup
-│       ├── Clean Home Directory
-│       ├── Remove Unused Schema Files
-│       ├── Compile Remaining Schema Files
-│       ├── Clean Bash History
-│       ├── Clean Backup Files
-│       ├── Clean Temporary Files
-│       ├── Clean Java Cache
-│       ├── Clean SQLite3 History
-│       ├── Clean System Cache
-│       ├── Clean Rotated Logs
-│       ├── Clean Trash
-│       ├── Clean Thumbnail Cache
-│       └── Clean X11 Debug Logs
-├── Exit Chroot Environment
-├── Unmount Bind Mounts
-├─┬ Set Custom Label
-│ ├─┬ Mount ISO
-│ │ └── Modify Diskdefines File
-│ └── Unmount ISO
-├─┬ Repack ISO
-│ ├─┬ Create New SquashFS
-│ │ └── Cleanup Chroot
-│ └── Create New ISO
-└── Cleanup Temporary Directories
+┌─ Start Program
+│
+├─ [Mount ISO]
+│   ├─ [Extract ISO contents to chroot directory]
+│   │   ├─ [Update installed packages]
+│   │   ├─ [Install latest available kernel]
+│   │   │   ├─ [Set installed kernel as default]
+│   │   │   └─ [Update grub]
+│   │   │
+│   │   ├─ [Clean up unnecessary files]
+│   │   │   ├─ [Remove .cache/ directory]
+│   │   │   ├─ [Remove .wget-hsts file]
+│   │   │   ├─ [Remove unused schema files]
+│   │   │   ├─ [Compile remaining schema files]
+│   │   │   ├─ [Delete .bash_history file]
+│   │   │   ├─ [Delete .bak backup files]
+│   │   │   ├─ [Delete .DS_Store files]
+│   │   │   ├─ [Delete Thumbs.db files]
+│   │   │   ├─ [Delete .tmp temporary files]
+│   │   │   ├─ [Delete Java cache files]
+│   │   │   ├─ [Delete .sqlite_history file]
+│   │   │   ├─ [Delete files ending with ~]
+│   │   │   ├─ [Delete rotated log files]
+│   │   │   ├─ [Empty trash]
+│   │   │   ├─ [Delete thumbnail cache files]
+│   │   │   └─ [Delete X11 debug logs]
+│   │   │
+│   │   └─ [Update diskdefines]
+│   │       ├─ [new disk size]
+|   |       └─ [new label]
+│   │
+│   └─ [Repack chroot directory into new ISO file]
+│       └─ [Create new ISO image]
+│
+├─ [Set permissions and ownership]
+│
+├─ [Clean up temporary directories]
+│
+└─ End Program
 ```
-This representation provides a clear overview of the script flow. It starts with input and output handling, followed by creating temporary directories. Then, it mounts the ISO and extracts it. It sets a custom label by modifying the diskdefines file. Next, it adds network connectivity and enters the chroot environment, where it updates the system, installs the latest kernel, sets it as the default kernel, and performs various cleanup operations. After exiting the chroot environment, it unmounts the bind mounts creates a new squashFS and generates a new ISO. Finally, it cleans up the temporary directories.
-
 ## Usage
 
 1. Clone or download the repository to your local machine.
@@ -67,16 +75,18 @@ This representation provides a clear overview of the script flow. It starts with
 
 4. Open a terminal and navigate to the script directory.
 
-5. Run the script using the following command:
+5. Make the script executable and execute it using the following command:
    ```bash
    yawp2.sh
    ```
 Follow the prompts to provide the input and output paths. The default output path will be displayed, which you can use or specify a different path.
 
 ## The diskdefines file
+> The script now automates the process of modifying the `diskdefines` file inside an ISO image.
+
 The diskdefines file is a text file used in Ubuntu and some other Linux distributions to provide metadata about an ISO image. It is typically found in the root directory of the ISO file and is named "diskdefines". This file contains information such as the name and version of the distribution, release date, and other details. It is used by the installer to display this information during the installation process.
 
-Here's an example of the contents of a diskdefines file:
+### Example diskdefines file:
 
 ```
 #define DISKNAME  Ubuntu 20.04 LTS
@@ -98,13 +108,6 @@ Here's an example of the contents of a diskdefines file:
 #define APPEND  file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd quiet splash ---
 #define TEXTHELP  /casper/text.cfg
 ```
-
-### The script now automates the process of modifying the `diskdefines` file inside an ISO image.
-- The script prompts the user to enter the path to the ISO file that needs to be modified and stores it in the input_iso variable.
-- It sets a custom label by appending the current date (in the format YYYY.MM.DD) to the string "Custom".
-- The diskdefines_path variable is set to the path of the diskdefines file within the mounted ISO.
-- Using sudo sed -i, the script removes the lines starting with #define DISKLABEL, #define LABEL, and #define CDLABEL from the diskdefines file.
-- The custom label lines are appended at the end of the diskdefines file using sudo tee -a.
 
 ## Possible Concerns
 ### System Compatibility
