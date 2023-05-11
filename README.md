@@ -3,7 +3,7 @@ This script automates the process of updating and repackaging an ISO file using 
 
 [yawp](https://github.com/apple-fritter/yawp), the predecessor, had a good reception following its first commits. I wanted to leave it be, and update some of my strategies employed by such a script and write something new. I also wanted to write something far less involved than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI. Please also consider checking out my related project, [iSOnject](https://github.com/apple-fritter/iSOnject).
 
-## Functionality"
+## Functionality
 yawp ][ performs the following tasks:
 - Mounts the input ISO file
 - Extracts the ISO contents to a chroot directory
