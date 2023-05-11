@@ -17,7 +17,7 @@ yawp ][ performs the following tasks:
 ## Differences
 In contrast to the original yawp, yawp2 is no longer also wrapper to the update and cleaning routine scripts, but rather includes them in one unified script, which may be more accessible to the end user for customization purposes.
 
-In addition to the above, there exists now a specific routine to handle kernel updates to the ISO, and modifies the diskdefines to accurately reflect the size of the new ISO's filesystem.
+In addition to the above, there exists now a specific routine to handle kernel updates to the ISO, and modifies the diskdefines to accurately reflect the size of the new ISO's filesystem, and labels the disk as "Custom" with the date the ISO was generated appended.
 
 ## Flowchart
 This representation provides a clear overview of the script flow.
