@@ -84,7 +84,7 @@ Follow the prompts to provide the input and output paths. The default output pat
 ## The diskdefines file
 > The script now automates the process of modifying the `diskdefines` file inside an ISO image.
 
-The diskdefines file is a text file used in Ubuntu and some other Linux distributions to provide metadata about an ISO image. It is typically found in the root directory of the ISO file and is named "diskdefines". This file contains information such as the name and version of the distribution, release date, and other details. It is used by the installer to display this information during the installation process.
+The `diskdefines` file is a text file used in Ubuntu and some other Linux distributions to provide metadata about an ISO image. It is typically found in the root directory of the ISO file and is named "diskdefines". This file contains information such as the name and version of the distribution, release date, and other details. It is used by the installer to display this information during the installation process.
 
 ### Example diskdefines file:
 
