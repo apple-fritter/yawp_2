@@ -51,7 +51,7 @@ This representation provides a clear overview of the script flow.
 │   │   │
 │   │   └─ [Update diskdefines]
 │   │       ├─ [new disk size]
-|   |       └─ [new label]
+│   │       └─ [new label]
 │   │
 │   └─ [Repack chroot directory into new ISO file]
 │       └─ [Create new ISO image]
