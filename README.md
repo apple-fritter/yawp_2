@@ -110,9 +110,9 @@ The `diskdefines` file is a text file used in Ubuntu and some other Linux distri
 ```
 
 ## Possible Concerns
-### System Compatibility
+### System Compatibility:
 The script is designed for Debian-based systems and may not work correctly on other distributions.
-### Dependency Requirements
+### Dependency Requirements:
 Ensure that you have the necessary dependencies installed (unsquashfs, mksquashfs, and xorriso) to avoid any issues during the update and ISO creation process.
 ### Custom Modifications:
 If you have made custom changes to your Debian ISO, running this script may overwrite or modify those changes. Make sure to backup any important data before using the script.
