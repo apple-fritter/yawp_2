@@ -3,6 +3,8 @@ This script automates the process of updating and repackaging an ISO file using 
 
 [yawp](https://github.com/apple-fritter/yawp), the predecessor, had a good reception following its first commits. I wanted to leave it be, and update some of my strategies employed by such a script and write something new. I also wanted to write something far less involved than [PJ-Singh](https://github.com/PJ-Singh-001)'s [CUBIC](https://github.com/PJ-Singh-001/Cubic), which is also a very good project, while doing so from CLI. Please also consider checking out my related project, [iSOnject](https://github.com/apple-fritter/iSOnject).
 
+---
+
 ## Functionality
 yawp ][ performs the following tasks:
 - Mounts the input ISO file
@@ -14,15 +16,18 @@ yawp ][ performs the following tasks:
 - Repacks the updated chroot directory into a new ISO file
 - Cleans up temporary directories
 
+---
+
 ## Differences
 In contrast to the original yawp, yawp2 is no longer also wrapper to the update and cleaning routine scripts, but rather includes them in one unified script, which may be more accessible to the end user for customization purposes.
 
 In addition to the above, there exists now a specific routine to handle kernel updates to the ISO, and modifies the diskdefines to accurately reflect the size of the new ISO's filesystem, and labels the disk as "Custom" with the date the ISO was generated appended.
 
+---
+
 ## Flowchart
-This representation provides a clear overview of the script flow.
 ```
-┌─ Start Program
+Start Program
 │
 ├─ [Mount ISO]
 │   ├─ [Extract ISO contents to chroot directory]
@@ -60,8 +65,11 @@ This representation provides a clear overview of the script flow.
 │
 ├─ [Clean up temporary directories]
 │
-└─ End Program
+End Program
 ```
+
+---
+
 ## Usage
 
 1. Clone or download the repository to your local machine.
@@ -80,6 +88,8 @@ This representation provides a clear overview of the script flow.
    yawp2.sh
    ```
 Follow the prompts to provide the input and output paths. The default output path will be displayed, which you can use or specify a different path.
+
+---
 
 ## The diskdefines file
 > The script now automates the process of modifying the `diskdefines` file inside an ISO image.
@@ -109,6 +119,8 @@ The `diskdefines` file is a text file used in Ubuntu and some other Linux distri
 #define TEXTHELP  /casper/text.cfg
 ```
 
+---
+
 ## Possible Concerns
 ### System Compatibility:
 The script is designed for Debian-based systems and may not work correctly on other distributions.
@@ -121,10 +133,14 @@ The script installs the latest available kernel. Ensure that you understand the 
 ### Testing:
 It's recommended to test the resulting ISO in a virtual machine or non-production environment before using it in a live system.
 
+---
+
 ## [Disclaimer](DISCLAIMER)
 **This software is provided "as is" and without warranty of any kind**, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
 
 **The authors do not endorse or support any harmful or malicious activities** that may be carried out with the software. It is the user's responsibility to ensure that their use of the software complies with all applicable laws and regulations.
+
+---
 
 ## License
 
