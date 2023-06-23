@@ -39,8 +39,6 @@ Start Program
 │   │   ├─ [Clean up unnecessary files]
 │   │   │   ├─ [Remove .cache/ directory]
 │   │   │   ├─ [Remove .wget-hsts file]
-│   │   │   ├─ [Remove unused schema files]
-│   │   │   ├─ [Compile remaining schema files]
 │   │   │   ├─ [Delete .bash_history file]
 │   │   │   ├─ [Delete .bak backup files]
 │   │   │   ├─ [Delete .DS_Store files]
